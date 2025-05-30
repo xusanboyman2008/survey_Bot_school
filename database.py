@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, Boolean, String, select, ForeignKey
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import declarative_base
 
-DATABASE_URL = "sqlite+aiosqlite:///dp.sqlite3"
+DATABASE_URL = "postgresql+asyncpg://postgres:DJDTHujJufIyqEaRVFCklZwAsuPDKocG@turntable.proxy.rlwy.net:45747/railway"
 engine = create_async_engine(DATABASE_URL)
 async_session = async_sessionmaker(engine)
 Base = declarative_base()
