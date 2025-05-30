@@ -1,4 +1,6 @@
 import asyncio
+import os
+
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
@@ -10,7 +12,7 @@ from database import init, create_survey, create_user, get_survey
 from word import  create_survey_docx
 
 dp = Dispatcher()
-bot = Bot(token='7234794963:AAGV1sRhNAeh2CZ-BCy7Y-I3gcfXWcHgoKc')
+bot = Bot(token=os.environ['TOKEN'])
 
 
 class Survey(StatesGroup):
