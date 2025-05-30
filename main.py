@@ -1,6 +1,4 @@
 import asyncio
-import os
-
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
@@ -12,7 +10,7 @@ from database import init, create_survey, create_user, get_survey
 from word import  create_survey_docx
 
 dp = Dispatcher()
-bot = Bot(token=os.environ['TOKEN'])
+bot = Bot(token='6778014003:AAHm5szBDWkIrPOfp985Xt19ytmilbmgRLU')
 
 
 class Survey(StatesGroup):
@@ -124,6 +122,12 @@ def confirm():
     return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='✅ Tastiqlsh', callback_data=f'a_done'),
                                                   InlineKeyboardButton(text='♻️ qaytatan yozish',
                                                                        callback_data=f'a_fail')], ])
+
+@dp.message(F.text=='/yuklash')
+async def download(message:Message):
+    print('downloading')
+    file_path = await create_survey_docx(await get_survey())
+    await message.answer_document(document=FSInputFile(file_path), caption="Sizning so'rovingiz hujjati")
 
 
 @dp.message(CommandStart())
@@ -462,11 +466,6 @@ async def ask(call: CallbackQuery, state: FSMContext):
         return
 
 
-@dp.message(F.text=='/yuklash')
-async def download(message:Message):
-    print('downloading')
-    file_path = await create_survey_docx(await get_survey())
-    await message.answer_document(document=FSInputFile(file_path), caption="Sizning so'rovingiz hujjati")
 
 
 

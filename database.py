@@ -99,7 +99,6 @@ async def create_survey(tg_id, first_name, last_name, classroom, subjects, date,
                 weekdays=str(weekdays),
                 education_name=education_name
             )
-            print(tg_id)
             await change_status(tg_id)
             session.add(new_survey)
             await session.commit()
@@ -107,5 +106,5 @@ async def create_survey(tg_id, first_name, last_name, classroom, subjects, date,
 
 async def init():
     async with engine.begin() as conn:
-        # await conn.run_sync(BaseModel.metadata.drop_all)  # Drop all tables first
+        # await conn.run_sync(Base.metadata.drop_all)  # Drop all tables first
         await conn.run_sync(Base.metadata.create_all)  # Recreate tables with fixes
