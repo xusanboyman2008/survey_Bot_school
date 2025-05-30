@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Boolean, String, select, ForeignKey
+from sqlalchemy import Column, Integer, Boolean, String, select, ForeignKey, BigInteger
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import declarative_base
 
@@ -10,22 +10,21 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "User"
     id = Column(Integer, primary_key=True)
-    tg_id = Column(Integer,unique=True)
-    status = Column(Boolean,default=False)
+    tg_id = Column(BigInteger, unique=True, nullable=False)  # Changed to BigInteger
+    status = Column(Boolean, default=False)
 
 class Survey(Base):
     __tablename__ = "Survey"
     id = Column(Integer, primary_key=True)
-    user_tg_id = Column(Integer, ForeignKey("User.tg_id"))
+    user_tg_id = Column(BigInteger, ForeignKey("User.tg_id"))  # Changed to BigInteger
     first_name = Column(String)
     last_name = Column(String)
     classroom = Column(String)
-    subjects= Column(String)
+    subjects = Column(String)
     date = Column(String)
     place = Column(String)
     weekdays = Column(String)
     education_name = Column(String)
-
 
 async def create_user(tg_id):
     async with async_session() as session:
