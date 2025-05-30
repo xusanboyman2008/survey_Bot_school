@@ -10,7 +10,7 @@ from database import init, create_survey, create_user, get_survey
 from word import  create_survey_docx
 
 dp = Dispatcher()
-bot = Bot(token='6778014003:AAHm5szBDWkIrPOfp985Xt19ytmilbmgRLU')
+bot = Bot(token=os.getenv('TOKEN'))
 
 
 class Survey(StatesGroup):
