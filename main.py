@@ -5,10 +5,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile
 from aiogram.types import Message, CallbackQuery
-
 from database import init, create_survey, create_user, get_survey
 from word import  create_survey_docx
-
+import os
 dp = Dispatcher()
 bot = Bot(token=os.getenv('TOKEN'))
 
