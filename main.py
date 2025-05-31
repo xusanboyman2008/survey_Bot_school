@@ -9,6 +9,7 @@ from database import init, create_survey, create_user, get_survey
 from word import  create_survey_docx
 import os
 dp = Dispatcher()
+# bot = Bot(token='6778014003:AAHm5szBDWkIrPOfp985Xt19ytmilbmgRLU')
 bot = Bot(token=os.getenv('TOKEN'))
 
 
@@ -179,7 +180,7 @@ async def classroom(call: CallbackQuery, state: FSMContext):
     gr = await state.get_data()
 
     # Determine grade from state or callback data
-    grade_s = gr.get('classroom') or (data[3] if len(data) == 4 else data[1])
+    grade_s = (data[3] if len(data) == 4 else data[1]) or gr.get('classroom')
     print(f"Selected grade: {grade_s}")
 
     if len(data) == 4:
@@ -187,6 +188,7 @@ async def classroom(call: CallbackQuery, state: FSMContext):
             text='📚 Sinifingizni tanlang:👇',
             reply_markup=classroom_keyboard(page=int(data[2]), grade=grade_s or '')
         )
+        await state.update_data(classroom=grade_s)
         return
 
     await call.message.edit_reply_markup(
